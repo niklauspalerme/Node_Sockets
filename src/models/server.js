@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////
-// Importaciones y Requeriments
+// Imports & Requeriments
 
 
 const express = require('express');
@@ -12,57 +12,49 @@ const cors = require('cors');
 
 class Server {
 
-
-    ////////////////////////////////
-    //Constructor
-
     constructor() {
+        this.app    = express();
 
-        this.app = express();
+        //Propiedades del socket
+        this.server = require('http').createServer( this.app );
+        this.io     = require('socket.io')( this.server );
 
-        //Path de las rutas
-        this.path = {}
+        this.paths = {};
 
-
-        //Middlewares
+        // Middlewares
         this.middlewares();
 
-        //Rutas
+        // Rutas de mi aplicación
         this.routes();
     }
 
-    ////////////////////////////////
-    //Metodos
+    middlewares() {
 
+        // CORS
+        this.app.use( cors() );
 
-    middlewares = () => {
-
-        //Directorio Publico
-        this.app.use(express.static('src/public'));
-
-        //CORS
-        this.app.use(cors());
-
+        // Directorio Público
+        this.app.use( express.static('public') );
 
     }
 
-
-    routes = () => {
+    routes() {
+        
+        // this.app.use( this.paths.auth, require('../routes/auth'));
+        
     }
 
-    listen = (port) => {
 
-        this.app.listen(port, () => {
-            console.log(`Server is listen the port ${port}`);
-        })
-
+    listen( port ) {
+        this.server.listen( port, () => {
+            console.log('Servidor corriendo en puerto', port );
+        });
     }
 
 }
 
-
 /////////////////////////////////////////////////////////////
-// Exportamos
+// Exports
 
 
-module.exports = Server
+module.exports = Server;
