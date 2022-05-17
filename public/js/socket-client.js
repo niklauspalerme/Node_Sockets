@@ -19,21 +19,24 @@ const socket = io();
 // on -> Es para escucha eventos
 // emit -> Emitir un evento
 
-socket.on('connect', ()=>{
-    console.log('Connect to the server');
+socket.on('connect', () => {
+    // console.log('Conectado');
+
     lblOffline.style.display = 'none';
     lblOnline.style.display  = '';
-})
 
-socket.on('disconnect', () =>{
-    console.log('Desconect to the server');
+});
+
+socket.on('disconnect', () => {
+    
+    // console.log('Desconectado del servidor');
     lblOnline.style.display  = 'none';
     lblOffline.style.display = '';
-})
+});
 
 
-socket.on('enviar-mensaje', payload, (id) => {
-    console.log('Desde el server todo esta OK , Id:', id)
+socket.on('enviar-mensaje', (payload) => {
+    console.log( payload )
 })
 
 

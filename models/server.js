@@ -4,6 +4,7 @@
 
 const express = require('express');
 const cors = require('cors');
+const {socketController} = require('../sockets/controller-sockets');
 
 
 /////////////////////////////////////////////////////////////
@@ -49,23 +50,7 @@ class Server {
 
     sockets() {
 
-        this.io.on('connection', socket =>{
-
-            console.log('Client Online: ', socket.id);
-
-            socket.on('disconnect', () =>{
-                console.log('Client Offline: ', socket.id);
-            })
-
-            socket.on('enviar-mensaje', ( payload, callback) => {
-        
-                const id = "Test Id de todo OK"
-                this.io.emit('enviar-mensaje', payload );
-                callback(id)
-
-            })
-
-        });
+        this.io.on('connection', socketController);
 
     }
 
