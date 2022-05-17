@@ -12,7 +12,10 @@ const cors = require('cors');
 class Server {
 
     constructor() {
+
         this.app    = express();
+
+        //Propiedades del socket
         this.server = require('http').createServer( this.app );
         this.io     = require('socket.io')( this.server );
 
@@ -52,7 +55,13 @@ class Server {
             socket.on('disconnect', () =>{
                 console.log('Client Offline: ', socket.id);
             })
-        } );
+
+            socket.on('enviar-mensaje', (payload)=>{
+                console.log(payload);
+            })
+
+
+        });
 
     }
 

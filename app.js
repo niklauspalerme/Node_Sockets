@@ -25,7 +25,6 @@ let main = () => {
     const port = process.env.PORT || 8080
     const server = new Server();
 
-    console.log(port);
     ////////////////////////////////
     //Funciones
 
