@@ -32,8 +32,8 @@ socket.on('disconnect', () =>{
 })
 
 
-socket.on('enviar-mensaje', (payload) => {
-    console.log( payload )
+socket.on('enviar-mensaje', payload, (id) => {
+    console.log('Desde el server todo esta OK , Id:', id)
 })
 
 
