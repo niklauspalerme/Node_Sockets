@@ -56,10 +56,11 @@ class Server {
                 console.log('Client Offline: ', socket.id);
             })
 
-            socket.on('enviar-mensaje', (payload)=>{
-                console.log(payload);
+            socket.on('enviar-mensaje', ( payload) => {
+        
+                this.io.emit('enviar-mensaje', payload );
+        
             })
-
 
         });
 

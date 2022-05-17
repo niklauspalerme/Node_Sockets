@@ -20,7 +20,7 @@ const socket = io();
 // emit -> Emitir un evento
 
 socket.on('connect', ()=>{
-    console.log('Conect to the server');
+    console.log('Connect to the server');
     lblOffline.style.display = 'none';
     lblOnline.style.display  = '';
 })
@@ -32,15 +32,22 @@ socket.on('disconnect', () =>{
 })
 
 
-btnEnviar.addEventListener('click', () =>{
+socket.on('enviar-mensaje', (payload) => {
+    console.log( payload )
+})
+
+
+btnEnviar.addEventListener( 'click', () => {
 
     const mensaje = txtMensaje.value;
     const payload = {
         mensaje,
-        id: 'XXXXXXX',
+        id: '123ABC',
         fecha: new Date().getTime()
     }
+    
+    socket.emit( 'enviar-mensaje', payload, ( id ) => {
+        console.log('Desde el server', id );
+    });
 
-    socket.emit('enviar-mensaje', payload);
-
-})
+});
