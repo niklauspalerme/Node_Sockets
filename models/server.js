@@ -7,16 +7,12 @@ const cors = require('cors');
 
 
 /////////////////////////////////////////////////////////////
-// Clases
-
+// Class
 
 class Server {
 
     constructor() {
-
         this.app    = express();
-
-        //Propiedades del socket
         this.server = require('http').createServer( this.app );
         this.io     = require('socket.io')( this.server );
 
@@ -28,7 +24,7 @@ class Server {
         // Rutas de mi aplicación
         this.routes();
 
-        //Manejo de Eventos de Sockets
+        // Sockets
         this.sockets();
     }
 
@@ -48,22 +44,26 @@ class Server {
         
     }
 
-    sockets(){
-        this.io.on('connection', socket => {
-            console.log("Client Online");
-        });
+    sockets() {
+
+        this.io.on('connection', socket =>{
+            console.log('Client Online: ', socket.id);
+
+            socket.on('disconnect', () =>{
+                console.log('Client Offline: ', socket.id);
+            })
+        } );
+
     }
 
-
-    listen( port ) {
-
-        //Escuchamos aqui el socket
+    listen(port) {
         this.server.listen( port, () => {
-            console.log('Servidor corriendo en puerto', port );
+            console.log('Servidor corriendo en puerto: ', port );
         });
     }
 
 }
+
 
 /////////////////////////////////////////////////////////////
 // Exports
@@ -71,4 +71,4 @@ class Server {
 
 module.exports = Server;
 
-//Sockect --> http://localhost:8080/socket.io/socket.io.js
+//Sockect --> http://localhost:3030/socket.io/socket.io.js

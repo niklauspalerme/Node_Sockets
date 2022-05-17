@@ -22,13 +22,14 @@ let main = () => {
     ////////////////////////////////
     //Variables
 
-    const PORT = process.env.PORT || 3000;
+    const port = process.env.PORT || 8080
     const server = new Server();
 
+    console.log(port);
     ////////////////////////////////
     //Funciones
 
-    server.listen(PORT)
+    server.listen(port)
 
 }
 
